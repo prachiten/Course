@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddComment</title>
+</head>
+<body>
+    <h1>Add Comment for course {{course.id}}</h1>
+    {%if messages%}
+        <ul class="messages">
+            {%for message in messages%}
+                <li {% if message.tags%} class="{{message.tags}}"{% endif %}>{{message}}
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="/comment/{{course.id}}/add" method="POST">
+        {% csrf_token %}
+        <label>comment:</label>
+        <br>
+        <textarea rows="4" cols="20" name="content"></textarea>
+        <br>
+        <input type="submit" value= "Add">
+    </form>
+    <h2>Previous comments for this course</h2>
+    <table>
+        <thead>
+            <th>Comments</th>
+        </thead>
+        <tbody>
+            {% for comment in all_comments %}
+            <tr>
+                <td>{{comment.content}}</td>
+                
+            </tr>
+            {%endfor%}
+        </tbody>
+    </table> 
+</body>
+</html>
