@@ -15,10 +15,11 @@ def add_course(request):
         if len(errors)>=1:
             for key,value in errors.items():
                 messages.error(request, value)
-        return redirect('/')    
-    dk=Description.objects.create(content=request.POST['desc'])
-    bk=Course.objects.create(name=request.POST['name'],desc= dk)
-    return redirect('/')
+            return redirect('/') 
+        else:   
+            dk=Description.objects.create(content=request.POST['desc'])
+            bk=Course.objects.create(name=request.POST['name'],desc= dk)
+            return redirect('/')
 
 def show_delete_page(request,course_id):
     context={
